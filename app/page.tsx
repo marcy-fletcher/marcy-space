@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main>Hello, world!</main>;
+  return <p className="text-muted-foreground">Welcome to Marcy Space.</p>
 }
