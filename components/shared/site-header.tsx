@@ -10,6 +10,7 @@ import {
   MonitorIcon,
   MoonIcon,
   OrbitIcon,
+  SettingsIcon,
   SunIcon,
   UserRoundIcon,
 } from "lucide-react"
@@ -62,7 +63,7 @@ function NavigationLink({
       aria-current={isActive ? "page" : undefined}
       onClick={onNavigate}
       className={cn(
-        "font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "font-medium tracking-wide uppercase transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         mobile
           ? "rounded-md px-3 py-2 text-base"
           : "border-b px-2 py-2 text-sm",
@@ -114,9 +115,13 @@ function UserMenu() {
             </span>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem disabled>
+          <DropdownMenuItem render={<Link href="/profile" />}>
             <UserRoundIcon />
             Profile
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/settings" />}>
+            <SettingsIcon />
+            Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
@@ -155,14 +160,13 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto grid h-16 w-full max-w-5xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="flex items-center gap-2 rounded-md font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          <OrbitIcon className="size-5" aria-hidden="true" />
-          <span>Marcy Space</span>
-        </Link>
+      <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-4 sm:px-6 md:grid md:grid-cols-[1fr_auto_1fr] md:justify-normal lg:px-8">
+        <div className="flex min-w-0 items-center gap-2">
+          <OrbitIcon className="size-5 shrink-0" aria-hidden="true" />
+          <span className="truncate text-xs leading-none font-semibold tracking-wide uppercase sm:text-sm">
+            Marcy&apos;s Space
+          </span>
+        </div>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
           {navigation.map((item) => (
