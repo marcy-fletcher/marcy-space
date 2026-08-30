@@ -5,13 +5,16 @@ import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { useState } from "react"
 import {
+  CompassIcon,
   LogOutIcon,
   MenuIcon,
   MonitorIcon,
   MoonIcon,
   OrbitIcon,
   SettingsIcon,
+  StoreIcon,
   SunIcon,
+  type LucideIcon,
   UserRoundIcon,
 } from "lucide-react"
 
@@ -39,17 +42,19 @@ import {
 import { cn } from "@/lib/utils"
 
 const navigation = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About me" },
+  { href: "/", label: "Market", icon: StoreIcon },
+  { href: "/about", label: "Explore", icon: CompassIcon },
 ]
 
 function NavigationLink({
   href,
+  icon: Icon,
   label,
   mobile = false,
   onNavigate,
 }: {
   href: string
+  icon: LucideIcon
   label: string
   mobile?: boolean
   onNavigate?: () => void
@@ -63,7 +68,7 @@ function NavigationLink({
       aria-current={isActive ? "page" : undefined}
       onClick={onNavigate}
       className={cn(
-        "font-medium tracking-wide uppercase transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "inline-flex items-center gap-2 font-medium tracking-wide uppercase transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         mobile
           ? "rounded-md px-3 py-2 text-base"
           : "border-b px-2 py-2 text-sm",
@@ -76,6 +81,7 @@ function NavigationLink({
             : "border-transparent text-muted-foreground hover:border-border"
       )}
     >
+      <Icon className="size-4" aria-hidden="true" />
       {label}
     </Link>
   )
@@ -164,7 +170,7 @@ export function SiteHeader() {
         <div className="flex min-w-0 items-center gap-2">
           <OrbitIcon className="size-5 shrink-0" aria-hidden="true" />
           <span className="truncate text-xs leading-none font-semibold tracking-wide uppercase sm:text-sm">
-            Marcy&apos;s Space
+            SKINSALE
           </span>
         </div>
 
