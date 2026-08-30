@@ -10,8 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Project rules
 
-- English is the project's default language. Write all documentation in English.
-- The product supports English and Russian from the start through i18n.
+- English is the project's language. Write all documentation in English.
 - All UI must support light and dark themes.
 - Prefer shadcn components. Search its registry through the shadcn MCP first. If no suitable shadcn component exists, reuse a shared component. Create a custom component only when neither exists. Put reusable custom components in the shared layer.
 - Keep shadcn components in their standard installation directory.
