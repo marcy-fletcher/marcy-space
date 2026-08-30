@@ -62,9 +62,17 @@ function NavigationLink({
       aria-current={isActive ? "page" : undefined}
       onClick={onNavigate}
       className={cn(
-        "rounded-md text-sm font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        mobile ? "px-3 py-2 text-base" : "px-3 py-1.5",
-        isActive ? "bg-muted text-foreground" : "text-muted-foreground"
+        "font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        mobile
+          ? "rounded-md px-3 py-2 text-base"
+          : "border-b px-2 py-2 text-sm",
+        isActive
+          ? mobile
+            ? "bg-muted text-foreground"
+            : "border-foreground text-foreground"
+          : mobile
+            ? "text-muted-foreground"
+            : "border-transparent text-muted-foreground hover:border-border"
       )}
     >
       {label}
