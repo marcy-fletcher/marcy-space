@@ -30,11 +30,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
-            <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+            <main className="mx-auto w-full max-w-[90rem] flex-1 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
               {children}
             </main>
             <footer className="border-t">
-              <div className="mx-auto w-full max-w-5xl px-4 py-6 text-center text-sm text-muted-foreground sm:px-6 lg:px-8">
+              <div className="mx-auto w-full max-w-[90rem] px-4 py-6 text-center text-sm text-muted-foreground sm:px-6 lg:px-8">
                 © {new Date().getFullYear()} Marcy Space
               </div>
             </footer>

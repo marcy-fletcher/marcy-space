@@ -166,7 +166,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-4 sm:px-6 md:grid md:grid-cols-[1fr_auto_1fr] md:justify-normal lg:px-8">
+      <div className="mx-auto flex h-16 w-full max-w-[90rem] items-center justify-between px-4 sm:px-6 md:grid md:grid-cols-[1fr_auto_1fr] md:justify-normal lg:px-8">
         <div className="flex min-w-0 items-center gap-2">
           <OrbitIcon className="size-5 shrink-0" aria-hidden="true" />
           <span className="truncate text-xs leading-none font-semibold tracking-wide uppercase sm:text-sm">
