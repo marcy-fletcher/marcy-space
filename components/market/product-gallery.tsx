@@ -40,7 +40,7 @@ export function ProductGallery({
     <Carousel setApi={setApi} opts={{ loop: images.length > 1 }}>
       <CarouselContent className="ml-0">
         {images.map((src, index) => (
-          <CarouselItem key={src} className="relative aspect-[3/4] pl-0">
+          <CarouselItem key={src} className="relative aspect-[4/5] pl-0">
             <Image
               src={src}
               alt={`${name}, preview ${index + 1}`}
