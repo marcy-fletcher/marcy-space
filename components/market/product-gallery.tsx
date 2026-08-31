@@ -13,10 +13,17 @@ import {
 } from "@/components/ui/carousel"
 
 export function ProductGallery({
-  images,
+  media,
   name,
 }: {
-  images: readonly string[]
+  media: readonly (
+    | { readonly type: "image"; readonly src: string }
+    | {
+        readonly type: "video"
+        readonly src: string
+        readonly poster: string
+      }
+  )[]
   name: string
 }) {
   const [api, setApi] = useState<CarouselApi>()
@@ -37,26 +44,51 @@ export function ProductGallery({
   }, [api])
 
   return (
-    <Carousel setApi={setApi} opts={{ loop: images.length > 1 }}>
+    <Carousel setApi={setApi} opts={{ loop: media.length > 1 }}>
       <CarouselContent className="ml-0">
-        {images.map((src, index) => (
-          <CarouselItem key={src} className="relative aspect-[4/5] pl-0">
-            <Image
-              src={src}
-              alt={`${name}, preview ${index + 1}`}
-              fill
-              loading={index === 0 ? "eager" : "lazy"}
-              sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-              className="object-cover transition-transform duration-500 group-hover/card:scale-[1.02]"
-            />
+        {media.map((item, index) => (
+          <CarouselItem
+            key={`${item.type}-${item.src}`}
+            className="relative aspect-[4/5] pl-0"
+          >
+            {item.type === "image" ? (
+              <Image
+                src={item.src}
+                alt={`${name}, preview ${index + 1}`}
+                fill
+                loading={index === 0 ? "eager" : "lazy"}
+                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            ) : current === index + 1 ? (
+              <video
+                src={item.src}
+                poster={item.poster}
+                autoPlay
+                muted
+                loop
+                playsInline
+                disablePictureInPicture
+                aria-label={`${name}, video preview ${index + 1}`}
+                className="pointer-events-none block size-full object-cover"
+              />
+            ) : (
+              <Image
+                src={item.poster}
+                alt={`${name}, video preview ${index + 1}`}
+                fill
+                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            )}
           </CarouselItem>
         ))}
       </CarouselContent>
 
-      {images.length > 1 && (
+      {media.length > 1 && (
         <>
           <span className="absolute top-3 right-3 z-10 rounded-full bg-black/55 px-2 py-1 text-[0.65rem] font-medium text-white backdrop-blur-sm">
-            {current} / {images.length}
+            {current} / {media.length}
           </span>
           <CarouselPrevious
             variant="secondary"

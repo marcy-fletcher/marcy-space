@@ -15,31 +15,14 @@ import { marketListings } from "@/lib/market-listings"
 
 export default function Home() {
   return (
-    <section className="space-y-8">
-      <header className="flex flex-col gap-3 border-b pb-6 sm:flex-row sm:items-end sm:justify-between">
-        <div className="space-y-2">
-          <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
-            Curated identities
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Market
-          </h1>
-          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-            Explore verified skins, their stories, and current ownership.
-          </p>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          {marketListings.length} listings
-        </p>
-      </header>
-
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <section>
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {marketListings.map((listing) => (
           <Card
             key={listing.id}
             className="h-full gap-0 overflow-hidden py-0"
           >
-            <ProductGallery images={listing.images} name={listing.name} />
+            <ProductGallery media={listing.media} name={listing.name} />
 
             <CardHeader className="gap-3 py-4">
               <div className="flex items-start justify-between gap-3">
