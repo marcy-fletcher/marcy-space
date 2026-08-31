@@ -5,7 +5,7 @@ import {
   UserRoundIcon,
 } from "lucide-react"
 
-import { ProductGallery } from "@/components/market/product-gallery"
+import { PersonaGallery } from "@/components/market/persona-gallery"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -15,39 +15,44 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import type { MarketListing } from "@/lib/market-listings"
+import {
+  formatPersonaCode,
+  getPersonaAge,
+} from "@/lib/digital-personas"
+import type { MarketListingItem } from "@/lib/market-listings"
+import { formatMoney } from "@/lib/money"
 
 export function MarketListingGrid({
   listings,
 }: {
-  listings: readonly MarketListing[]
+  listings: readonly MarketListingItem[]
 }) {
   return (
     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {listings.map((listing) => (
+      {listings.map(({ listing, persona }) => (
         <Card key={listing.id} className="h-full gap-0 overflow-hidden py-0">
-          <ProductGallery media={listing.media} name={listing.name} />
+          <PersonaGallery gallery={persona.gallery} name={persona.name} />
 
           <CardHeader className="gap-3 py-4">
             <div className="flex items-start justify-between gap-3">
-              <CardTitle className="text-lg">{listing.name}</CardTitle>
+              <CardTitle className="text-lg">{persona.name}</CardTitle>
               <span className="shrink-0 rounded-full bg-muted px-2 py-1 font-mono text-[0.65rem] leading-none text-muted-foreground">
-                {listing.id}
+                {formatPersonaCode(persona.id)}
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-              <span>{listing.age} years</span>
+              <span>{getPersonaAge(persona)} years</span>
               <span className="h-3 w-px bg-border" aria-hidden="true" />
               <span className="inline-flex items-center gap-1.5">
                 <BriefcaseBusinessIcon
                   className="size-3.5"
                   aria-hidden="true"
                 />
-                {listing.occupation}
+                {persona.characteristics.professional.occupation}
               </span>
             </div>
             <CardDescription className="line-clamp-3 min-h-15 leading-5">
-              {listing.description}
+              {persona.description}
             </CardDescription>
           </CardHeader>
 
@@ -70,7 +75,7 @@ export function MarketListingGrid({
                   Price
                 </dt>
                 <dd className="font-mono text-base font-semibold tracking-tight">
-                  {listing.price}
+                  {formatMoney(listing.price)}
                 </dd>
               </div>
             </dl>

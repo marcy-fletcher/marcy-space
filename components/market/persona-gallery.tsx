@@ -11,19 +11,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import type { PersonaMedia } from "@/lib/digital-personas"
 
-export function ProductGallery({
-  media,
+export function PersonaGallery({
+  gallery,
   name,
 }: {
-  media: readonly (
-    | { readonly type: "image"; readonly src: string }
-    | {
-        readonly type: "video"
-        readonly src: string
-        readonly poster: string
-      }
-  )[]
+  gallery: readonly PersonaMedia[]
   name: string
 }) {
   const [api, setApi] = useState<CarouselApi>()
@@ -44,9 +38,9 @@ export function ProductGallery({
   }, [api])
 
   return (
-    <Carousel setApi={setApi} opts={{ loop: media.length > 1 }}>
+    <Carousel setApi={setApi} opts={{ loop: gallery.length > 1 }}>
       <CarouselContent className="ml-0">
-        {media.map((item, index) => (
+        {gallery.map((item, index) => (
           <CarouselItem
             key={`${item.type}-${item.src}`}
             className="relative aspect-[4/5] pl-0"
@@ -85,10 +79,10 @@ export function ProductGallery({
         ))}
       </CarouselContent>
 
-      {media.length > 1 && (
+      {gallery.length > 1 && (
         <>
           <span className="absolute top-3 right-3 z-10 rounded-full bg-black/55 px-2 py-1 text-[0.65rem] font-medium text-white backdrop-blur-sm">
-            {current} / {media.length}
+            {current} / {gallery.length}
           </span>
           <CarouselPrevious
             variant="secondary"

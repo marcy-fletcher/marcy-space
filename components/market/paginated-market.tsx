@@ -11,14 +11,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import type { MarketListing } from "@/lib/market-listings"
+import type { MarketListingItem } from "@/lib/market-listings"
 import { paginate } from "@/lib/paginate"
 
 export function PaginatedMarket({
   listings,
   pageSize,
 }: {
-  listings: readonly MarketListing[]
+  listings: readonly MarketListingItem[]
   pageSize: number
 }) {
   const searchParams = useSearchParams()

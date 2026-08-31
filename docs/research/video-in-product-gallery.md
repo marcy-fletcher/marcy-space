@@ -1,14 +1,14 @@
-# Video in the product gallery
+# Video in the persona gallery
 
 ## Context
 
-The current `ProductGallery` is a client-side Embla v8 carousel whose slides contain `next/image`. Embla does not constrain slide content: it treats the container's direct children as slides, so an HTML `<video>` can replace an image inside any `CarouselItem` without changing the carousel library ([Embla v8 options](https://www.embla-carousel.com/docs/v8/api/options)).
+The current `PersonaGallery` is a client-side Embla v8 carousel whose slides contain `next/image`. Embla does not constrain slide content: it treats the container's direct children as slides, so an HTML `<video>` can replace an image inside any `CarouselItem` without changing the carousel library ([Embla v8 options](https://www.embla-carousel.com/docs/v8/api/options)).
 
 ## Options
 
 | Option | Best for | Benefits | Costs and caveats |
 | --- | --- | --- | --- |
-| Native `<video>` as a slide | Short, self-hosted product clips | Smallest change; native controls, poster, inline playback, captions, and multiple source formats are platform features. `preload="none"` prevents eager video transfer until playback, while `poster` preserves the card image ([MDN `<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video)). | Each visible card still creates a media element. Pause it when its slide is deselected; Embla's `select` event fires after drag or previous/next navigation ([Embla events](https://www.embla-carousel.com/docs/v8/api/events)). Dragging over native controls may need a narrow `watchDrag` callback that skips Embla dragging for events originating inside the video; Embla officially supports this callback ([Embla `watchDrag`](https://www.embla-carousel.com/docs/v8/api/options#watchdrag)). |
+| Native `<video>` as a slide | Short, self-hosted persona clips | Smallest change; native controls, poster, inline playback, captions, and multiple source formats are platform features. `preload="none"` prevents eager video transfer until playback, while `poster` preserves the card image ([MDN `<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video)). | Each visible card still creates a media element. Pause it when its slide is deselected; Embla's `select` event fires after drag or previous/next navigation ([Embla events](https://www.embla-carousel.com/docs/v8/api/events)). Dragging over native controls may need a narrow `watchDrag` callback that skips Embla dragging for events originating inside the video; Embla officially supports this callback ([Embla `watchDrag`](https://www.embla-carousel.com/docs/v8/api/options#watchdrag)). |
 | Poster in carousel, playback in a modal | Longer clips, sound-first media, or dense result grids | Card stays lightweight and visually stable. Mounting the player only after the poster is activated avoids loading video before user intent. shadcn already defines a standard accessible `Dialog` composition for trigger and modal content ([shadcn Dialog](https://ui.shadcn.com/docs/components/radix/dialog)). | One extra interaction; playback is no longer spatially inside the carousel. The player must pause or unmount when the dialog closes. |
 | Muted hover autoplay preview | Very short, silent teaser loops | Fast visual preview on pointer devices. Browser autoplay generally works only for inaudible media; use `muted`, `playsInline`, and a click/tap fallback ([MDN autoplay guide](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay)). | Poor fit for a four-card grid: several previews can consume bandwidth and create motion. Hover is unavailable or inconvenient on many touch devices, which can be detected with `@media (hover: hover)` ([MDN `hover`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/hover)). Pause on pointer leave, slide change, and when the card leaves view. |
 | YouTube/Vimeo iframe | Existing externally hosted videos | Hosting, transcoding, player UI, and playback APIs are delegated to the provider. Next.js distinguishes direct files via `<video>` from platform embeds via `<iframe>` ([Next.js video guide](https://nextjs.org/docs/15/app/guides/videos)); YouTube and Vimeo expose official iframe player APIs ([YouTube IFrame API](https://developers.google.com/youtube/iframe_api_reference), [Vimeo Player SDK](https://developer.vimeo.com/player/sdk/basics)). | Heavier third-party player and less visual control. Defer iframe creation until click or modal open. Cross-origin autoplay can still be blocked; YouTube exposes an `onAutoplayBlocked` event. |
@@ -16,7 +16,7 @@ The current `ProductGallery` is a client-side Embla v8 carousel whose slides con
 
 ## Recommendation
 
-Start with **native `<video>` slides** for short product clips:
+Start with **native `<video>` slides** for short persona clips:
 
 - Change gallery data from `images: string[]` to a discriminated media list such as `{ type: "image" | "video", src, poster?, alt }[]`.
 - Render video with `controls`, `playsInline`, `preload="none"`, a portrait `poster`, and the existing `aspect-[4/5] object-cover` treatment.
