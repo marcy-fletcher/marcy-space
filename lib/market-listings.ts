@@ -442,3 +442,5 @@ export const marketListings = [
     media: [{ type: "image", src: "https://randomuser.me/api/portraits/women/40.jpg" }],
   },
 ] as const
+
+export type MarketListing = (typeof marketListings)[number]
